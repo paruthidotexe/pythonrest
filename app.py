@@ -13,9 +13,19 @@ app = Flask(__name__)
 def home():
     return "Start Page"
 
+def PonsPrint(printType, printVal):
+    if(printType == True):
+        print(printVal)
+    else:
+        outputFilePath = "RecipeList.txt"
+        outputFile = open(outputFilePath, "a")
+        outputFile.write("\n")
+        outputFile.write(printVal)
+        outputFile.close()
+
 
 def GetRecipeDetails(urlpath):
-    print (urlpath)
+    PonsPrint (False, urlpath)
     
     htmlFile = urlopen(urlpath)
 
@@ -24,46 +34,57 @@ def GetRecipeDetails(urlpath):
     soup = BeautifulSoup(htmlContent, "html.parser")
 
     ingredients = soup.find("div", class_="heading")
-    print(ingredients.h2.text)
+    PonsPrint(False,ingredients.h2.text)
 
     recipeDetails = soup.find("div", class_="recipe-detail-rating-block")
     cuisine = recipeDetails.find("ul", class_="pre-tags")
-    print(cuisine.text)
+    PonsPrint(False,cuisine.text)
     # print(cuisine.span.text)
 
     ingredients = soup.find_all("div", class_="ingredients")
-    print (ingredients[0].h3.text)
+    PonsPrint(False, ingredients[0].h3.text)
     for curingredients in ingredients:
         if curingredients.ul:
             ingredientsList = curingredients.ul.find_all("li")
             if(ingredientsList):
                 for li in ingredientsList:
-                    print(li.text)
+                    PonsPrint(False,li.text)
 
     ingredients = soup.find_all("div", class_="ingredients")
-    print ("\n" + ingredients[1].h3.text)
+    PonsPrint(False, "\n" + ingredients[1].h3.text)
     cookwareList = ingredients[1].find_all("a")
     for curCookware in cookwareList:
-        print(curCookware.attrs['href'])
+        PonsPrint(False,curCookware.attrs['href'])
 
     #ingredients = soup.find_all("div", class_="recipe-steps")
     recipeSteps = soup.find_all("div", class_="step-detail")
-    print ("\nStep by step")
+    PonsPrint(False,"\nStep by step")
     recipeSteps = recipeSteps[0].find_all("p")
     for curRecipeStep in recipeSteps:
-        print(curRecipeStep.text)
+        PonsPrint(False, curRecipeStep.text)
+
+    PonsPrint (False, "\n----------------------------End of Recipe--------------------------------------\n")
 
 
 if __name__ == '__main__':
     recipePaths = [
         'http://www.prestigesmartchef.com/recipe/view/italian-pasta-penne-allaarrabiata',
-          "http://www.prestigesmartchef.com/recipe/view/chicken-tikka"
+          "http://www.prestigesmartchef.com/recipe/view/chicken-tikka",
+          "http://www.prestigesmartchef.com/recipe/view/shammi-kebab",
+          "http://www.prestigesmartchef.com/recipe/view/hariyali-chicken-kadahi"
+          
     ]
+    
+    outputFilePath = "RecipeList.txt"
+    outputFile = open(outputFilePath, "w")
+    outputFile.write ("\n----------------------------Automation START--------------------------------------\n")
+    outputFile.close()
+
     for index in recipePaths:
-        print ("----------------------------------------------------------------------------")
         GetRecipeDetails(index)
-        print ("----------------------------------------------------------------------------")
 
-
+    outputFile = open(outputFilePath, "a")
+    outputFile.write ("\n-----------------------------Automation END---------------------------------------\n")
+    outputFile.close()
 
 
