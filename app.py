@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify, make_response
+from flask import send_file
 from flask_sqlalchemy import SQLAlchemy
 import urllib
 import urllib.parse
@@ -7,11 +8,6 @@ import json
 from bs4 import BeautifulSoup
 
 app = Flask(__name__)
-
-## html pages
-@app.route("/")
-def home():
-    return "Start Page"
 
 def PonsPrint(printType, printVal):
     if(printType == True):
@@ -88,48 +84,58 @@ def GetRecipeDetails(urlpath):
     for curRecipeStep in recipeSteps:
         PonsPrint(False, "\nChef : " + curRecipeStep.h4.get_text())
 
-    # recipeSteps = soup.find_all("div", id="divImage")
-    # for curRecipeStep in recipeSteps:
-    #     imgTags = curRecipeStep.find_all("img", id="imgRecipe")
-    #     for imgTag in imgTags:
-    #         relativePath = imgTag["src"]
-    #         fileExt = relativePath.rsplit(".")[-1:]
-    #         if fileExt[0]:
-    #             imgPath = urllib.parse.urljoin(urlpath, relativePath)
-    #             urllib.request.urlretrieve(imgPath, recipeName + "." + fileExt[0])
+    recipeSteps = soup.find_all("div", id="divImage")
+    for curRecipeStep in recipeSteps:
+        imgTags = curRecipeStep.find_all("img", id="imgRecipe")
+        for imgTag in imgTags:
+            relativePath = imgTag["src"]
+            fileExt = relativePath.rsplit(".")[-1:]
+            if fileExt[0]:
+                imgPath = urllib.parse.urljoin(urlpath, relativePath)
+                urllib.request.urlretrieve(imgPath, recipeName + "." + fileExt[0])
 
     PonsPrint (False, "\n----------------------------End of Recipe--------------------------------------\n")
 
 
+## html pages
+@app.route("/")
+def home():
+    return "Start Page"
+
+@app.route('/<path:filename>', methods=['GET', 'POST'])
+def download(filename):    
+    return send_file(filename)
+
 if __name__ == '__main__':
-    recipePaths = [
-        'http://www.prestigesmartchef.com/recipe/view/italian-pasta-penne-allaarrabiata',
-          "http://www.prestigesmartchef.com/recipe/view/chicken-tikka",
-          "http://www.prestigesmartchef.com/recipe/view/brownie-cake",
-          "http://www.prestigesmartchef.com/recipe/view/veg-hakka-noodle",
-          "http://www.prestigesmartchef.com/recipe/view/indian-cottage-cheese-with-fenugreek-paneer-methi",
-          "http://www.prestigesmartchef.com/recipe/view/dum-aloo",
-          "http://www.prestigesmartchef.com/recipe/view/shammi-kebab",
-          "http://www.prestigesmartchef.com/recipe/view/hariyali-chicken-kadahi",
-          "http://www.prestigesmartchef.com/recipe/view/reshmi-paneer-seekh",
-          "http://www.prestigesmartchef.com/recipe/view/indian-cottage-cheese-with-fenugreek-paneer-methi",
-          "http://www.prestigesmartchef.com/recipe/view/paneer-tikka"          
-    ]
+    # recipePaths = [
+    #     'http://www.prestigesmartchef.com/recipe/view/italian-pasta-penne-allaarrabiata',
+    #       "http://www.prestigesmartchef.com/recipe/view/chicken-tikka",
+    #       "http://www.prestigesmartchef.com/recipe/view/brownie-cake",
+    #       "http://www.prestigesmartchef.com/recipe/view/veg-hakka-noodle",
+    #       "http://www.prestigesmartchef.com/recipe/view/indian-cottage-cheese-with-fenugreek-paneer-methi",
+    #       "http://www.prestigesmartchef.com/recipe/view/dum-aloo",
+    #       "http://www.prestigesmartchef.com/recipe/view/shammi-kebab",
+    #       "http://www.prestigesmartchef.com/recipe/view/hariyali-chicken-kadahi",
+    #       "http://www.prestigesmartchef.com/recipe/view/reshmi-paneer-seekh",
+    #       "http://www.prestigesmartchef.com/recipe/view/indian-cottage-cheese-with-fenugreek-paneer-methi",
+    #       "http://www.prestigesmartchef.com/recipe/view/paneer-tikka"          
+    # ]
 
     # recipePaths = [
-    #       "http://www.prestigesmartchef.com/recipe/view/italian-pasta-penne-allaarrabiata",
+    #       "http://www.prestigesmartchef.com/recipe/view/coconut-chicken-curry",
     # ]
     
-    outputFilePath = "RecipeList.txt"
-    outputFile = open(outputFilePath, "w")
-    outputFile.write ("\n----------------------------Automation START--------------------------------------\n")
-    outputFile.close()
+    # outputFilePath = "RecipeList.txt"
+    # outputFile = open(outputFilePath, "w")
+    # outputFile.write ("\n----------------------------Automation START--------------------------------------\n")
+    # outputFile.close()
 
-    for index in recipePaths:
-        GetRecipeDetails(index)
+    # for index in recipePaths:
+    #     GetRecipeDetails(index)
 
-    outputFile = open(outputFilePath, "a")
-    outputFile.write ("\n-----------------------------Automation END---------------------------------------\n")
-    outputFile.close()
+    # outputFile = open(outputFilePath, "a")
+    # outputFile.write ("\n-----------------------------Automation END---------------------------------------\n")
+    # outputFile.close()
 
+    app.run(debug=True, port=7777)
 
