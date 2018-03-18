@@ -37,7 +37,6 @@ def GetWeatherData():
     return retVal
 
 
-if __name__ == "__main__":
-    print(GetAllTasks())
+if __name__ == "__main__":    
     app.run(debug=True, port=7777)
 

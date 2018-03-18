@@ -1,3 +1,8 @@
+from flask import Flask
+import json
+
+app = Flask(__name__)
+
 
 def GetAllTasks():
     Tasks =[
@@ -24,3 +29,16 @@ def GetAllTasks():
     ]
     return Tasks
 
+
+@app.route("/")
+def home():    
+    return "Task Lists"
+
+
+@app.route("/tasks")
+def AllTasks():    
+    return json.dumps(GetAllTasks())
+
+
+if __name__ == "__main__":    
+    app.run(host= '0.0.0.0', port=7777)
