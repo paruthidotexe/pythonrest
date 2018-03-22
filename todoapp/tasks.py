@@ -7,12 +7,17 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def home():    
-    return render_template("index.html")
+def home():
+    taskliststr = "<ul>"
+    newList = tasksmgr.GetAllTasks()
+    for task in newList:
+        taskliststr += "<li>" + str(task["desc"]) + "</li>"
+    taskliststr += "</ul>"
+    return render_template("index.html", tagVal = "", taskList = newList)
 
 
 @app.route("/api/v1/tasks")
-def AllTasksApi():    
+def GetAllTasksApi():    
     return json.dumps(tasksmgr.GetAllTasks())
 
 

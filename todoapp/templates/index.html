@@ -2,15 +2,20 @@
 
 {% block title %} Paruthi {% endblock %}
 
-
 {% block container %}
     
-{% if tagVal == "completed" %} 
-<p> COMPLETED </p>
-{{ taskList }}
+{% if tagVal == "" %} 
+<p> ALL TASKS </p>
+
+<ul>
+{% for task in taskList %}
+<li><div class="well">{{task["desc"]}}</div>  
+</li>
+{% endfor%}
+</ul>
 {% else %}
-<p> ELSE </p>
-{% endif %} 
+ ELSE
+ {% endif %} 
 
 {% endblock %}
 

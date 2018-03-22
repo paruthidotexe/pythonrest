@@ -29,7 +29,8 @@ def GetAllTasks():
     TasksList.extend(GetDefaultTasks())
     TasksList.extend(GetStartedTasks())
     TasksList.extend(GetCompletedTasks())
-
+    # for task in TasksList:
+    #     print ("\n" + str(task))
     return TasksList
 
     
