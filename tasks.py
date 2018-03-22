@@ -1,33 +1,8 @@
 from flask import Flask
 import json
+import tasksmgr 
 
 app = Flask(__name__)
-
-
-def GetAllTasks():
-    Tasks =[
-        {
-            "id" : 1,
-            "desc" : "LAN server",
-        },
-        {
-            "id" : 2,
-            "desc" : "oAuth verifications",
-        },
-        {
-            "id" : 3,
-            "desc" : "ToDo List App",
-        },
-        {
-            "id" : 4,
-            "desc" : "Admin App",
-        },
-        {
-            "id" : 5,
-            "desc" : "Database Integration",
-        }
-    ]
-    return Tasks
 
 
 @app.route("/")
@@ -37,8 +12,23 @@ def home():
 
 @app.route("/tasks")
 def AllTasks():    
-    return json.dumps(GetAllTasks())
+    return json.dumps(tasksmgr.GetAllTasks())
+
+
+@app.route("/tasks/completed")
+def GetCompletedTasksApi():    
+    return json.dumps(tasksmgr.GetCompletedTasks())
+
+
+@app.route("/tasks/started")
+def GetStartedTasksApis():    
+    return json.dumps(tasksmgr.GetStartedTasks())
+
+
+@app.route("/tasks/default")
+def GetDefaultTasksApi():    
+    return json.dumps(tasksmgr.GetDefaultTasks())
 
 
 if __name__ == "__main__":    
-    app.run(host= '0.0.0.0', port=7777)
+    app.run(host= '127.0.0.1', port=7777)
