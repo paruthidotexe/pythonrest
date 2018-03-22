@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %} Paruthi {% endblock %}
+
+
+{% block container %}
+    
+{% if tagVal == "completed" %} 
+<p> COMPLETED </p>
+{{ taskList }}
+{% else %}
+<p> ELSE </p>
+{% endif %} 
+
+{% endblock %}
+

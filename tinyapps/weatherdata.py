@@ -4,7 +4,6 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import os
 from flask import Flask
-from tasks import GetAllTasks
 
 app = Flask(__name__)
 
@@ -37,6 +36,8 @@ def GetWeatherData():
     return retVal
 
 
-if __name__ == "__main__":    
+if __name__ == "__main__":
+    print(GetWeatherData())
     app.run(debug=True, port=7777)
+
 
