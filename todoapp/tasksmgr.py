@@ -3,7 +3,7 @@ from tasksdata import Tasks
 def GetStartedTasks():
     TasksList = []
     for task in Tasks:
-        if task["state"] == "started":
+        if task["state"] == "Started":
             TasksList.append(task)
     return TasksList
 
@@ -11,7 +11,7 @@ def GetStartedTasks():
 def GetDefaultTasks():
     TasksList = []
     for task in Tasks:
-        if task["state"] == "default":
+        if task["state"] == "Default":
             TasksList.append(task)
     return TasksList
 
@@ -19,15 +19,15 @@ def GetDefaultTasks():
 def GetCompletedTasks():
     TasksList = []
     for task in Tasks:
-        if task["state"] == "completed":
+        if task["state"] == "Completed":
             TasksList.append(task)
     return TasksList
 
 
 def GetAllTasks():
     TasksList = []
-    TasksList.extend(GetDefaultTasks())
     TasksList.extend(GetStartedTasks())
+    TasksList.extend(GetDefaultTasks())
     TasksList.extend(GetCompletedTasks())
     # for task in TasksList:
     #     print ("\n" + str(task))

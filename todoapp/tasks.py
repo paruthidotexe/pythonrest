@@ -3,17 +3,13 @@ from flask import render_template
 import json
 import tasksmgr 
 
+
 app = Flask(__name__)
 
 
 @app.route("/")
-def home():
-    taskliststr = "<ul>"
-    newList = tasksmgr.GetAllTasks()
-    for task in newList:
-        taskliststr += "<li>" + str(task["desc"]) + "</li>"
-    taskliststr += "</ul>"
-    return render_template("index.html", tagVal = "", taskList = newList)
+def IndexPage():
+    return render_template("index.html")
 
 
 @app.route("/api/v1/tasks")
@@ -37,23 +33,23 @@ def GetDefaultTasksApi():
 
 
 @app.route("/tasks")
-def AllTasks():    
-    return "Tasks list"
+def HomePage():    
+    return render_template("tasks.html", tagVal = "All Tasks", taskList = tasksmgr.GetAllTasks())
 
 
 @app.route("/tasks/completed")
 def GetCompletedTasks():    
-    return render_template("index.html", tagVal = "completed", taskList = tasksmgr.GetCompletedTasks())
+    return render_template("tasks.html", tagVal = "Completed", taskList = tasksmgr.GetCompletedTasks())
 
 
 @app.route("/tasks/started")
 def GetStartedTasks():    
-    return render_template("index.html", tagVal = "started", taskList = tasksmgr.GetStartedTasks())
+    return render_template("tasks.html", tagVal = "Started", taskList = tasksmgr.GetStartedTasks())
 
 
 @app.route("/tasks/default")
 def GetDefaultTasks():    
-    return render_template("index.html", tagVal = "default", taskList = tasksmgr.GetDefaultTasks())
+    return render_template("tasks.html", tagVal = "Default", taskList = tasksmgr.GetDefaultTasks())
 
 
 if __name__ == "__main__":    

@@ -1,19 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %} Paruthi {% endblock %}
+{% block title %} Todo App {% endblock %}
 
 {% block container %}
     
-
-<p> {{tagVal}} </p>
+<h1 align="center"> Todo App </h1>
+<p> App is made in python using </p>
 <ul>
-    {% for task in taskList %}
-        {% if tagVal == task["state"] or tagVal == "" %} 
-            <li> {{task["desc"]}}  </li>
-        {% else %}
-            <li> <br>{{tagVal}} <br>] vs [{{task["state"]}} ]</li>
-        {% endif %}
-    {% endfor %}
+    <li> Python 3 </li>
+    <li> Flask </li>
+    <li> SQLite </li>
 </ul>
 
 {% endblock %}

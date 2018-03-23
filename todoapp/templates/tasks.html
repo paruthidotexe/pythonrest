@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %} Paruthi {% endblock %}
+
+{% block container %}
+    
+
+<h1 align="center"> {{tagVal}} </h1>
+<ul>
+    {% for task in taskList %}
+        {% if tagVal == task["state"] or tagVal == "All Tasks" %} 
+            <li> {{task["desc"]}}  </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+{% endblock %}
+
