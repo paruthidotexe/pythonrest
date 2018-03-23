@@ -40,20 +40,25 @@ def GetDefaultTasksApi():
 def AllTasks():    
     return "Tasks list"
 
+
 @app.route("/tasks/completed")
 def GetCompletedTasks():    
-    return render_template("index.html", tagVal = "completed", taskList = GetCompletedTasksApi())
+    return render_template("index.html", tagVal = "completed", taskList = tasksmgr.GetCompletedTasks())
 
 
 @app.route("/tasks/started")
 def GetStartedTasks():    
-    return render_template("index.html")
+    return render_template("index.html", tagVal = "started", taskList = tasksmgr.GetStartedTasks())
 
 
 @app.route("/tasks/default")
 def GetDefaultTasks():    
-    return render_template("index.html")
+    return render_template("index.html", tagVal = "default", taskList = tasksmgr.GetDefaultTasks())
 
 
 if __name__ == "__main__":    
     app.run(debug=True, host= '127.0.0.1', port=7777)
+
+
+
+

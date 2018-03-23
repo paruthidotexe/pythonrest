@@ -4,18 +4,17 @@
 
 {% block container %}
     
-{% if tagVal == "" %} 
-<p> ALL TASKS </p>
 
+<p> {{tagVal}} </p>
 <ul>
-{% for task in taskList %}
-<li><div class="well">{{task["desc"]}}</div>  
-</li>
-{% endfor%}
+    {% for task in taskList %}
+        {% if tagVal == task["state"] or tagVal == "" %} 
+            <li> {{task["desc"]}}  </li>
+        {% else %}
+            <li> <br>{{tagVal}} <br>] vs [{{task["state"]}} ]</li>
+        {% endif %}
+    {% endfor %}
 </ul>
-{% else %}
- ELSE
- {% endif %} 
 
 {% endblock %}
 
