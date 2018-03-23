@@ -1,8 +1,8 @@
 from flask import Flask
 from flask import render_template
 import json
-import tasksmgr 
-
+import tasks_mgr 
+import user_mgr
 
 app = Flask(__name__)
 
@@ -11,22 +11,22 @@ app = Flask(__name__)
 #--------------
 @app.route("/api/v1/tasks")
 def GetAllTasksApi():    
-    return json.dumps(tasksmgr.GetAllTasks())
+    return json.dumps(tasks_mgr.GetAllTasks())
 
 
 @app.route("/api/v1/tasks/completed")
 def GetCompletedTasksApi():    
-    return json.dumps(tasksmgr.GetCompletedTasks())
+    return json.dumps(tasks_mgr.GetCompletedTasks())
 
 
 @app.route("/api/v1/tasks/started")
 def GetStartedTasksApis():    
-    return json.dumps(tasksmgr.GetStartedTasks())
+    return json.dumps(tasks_mgr.GetStartedTasks())
 
 
 @app.route("/api/v1/tasks/default")
 def GetDefaultTasksApi():    
-    return json.dumps(tasksmgr.GetDefaultTasks())
+    return json.dumps(tasks_mgr.GetDefaultTasks())
 
 
 #--------------
@@ -44,27 +44,27 @@ def error_404(e):
 
 @app.route("/tasks")
 def HomePage():    
-    return render_template("tasks.html", tagVal = "All Tasks", taskList = tasksmgr.GetAllTasks())
+    return render_template("tasks.html", tagVal = "All Tasks", taskList = tasks_mgr.GetAllTasks())
 
 
 @app.route("/tasks/completed")
 def GetCompletedTasks():    
-    return render_template("tasks.html", tagVal = "Completed", taskList = tasksmgr.GetCompletedTasks())
+    return render_template("tasks.html", tagVal = "Completed", taskList = tasks_mgr.GetCompletedTasks())
 
 
 @app.route("/tasks/started")
 def GetStartedTasks():    
-    return render_template("tasks.html", tagVal = "Started", taskList = tasksmgr.GetStartedTasks())
+    return render_template("tasks.html", tagVal = "Started", taskList = tasks_mgr.GetStartedTasks())
 
 
 @app.route("/tasks/default")
 def GetDefaultTasks():    
-    return render_template("tasks.html", tagVal = "Default", taskList = tasksmgr.GetDefaultTasks())
+    return render_template("tasks.html", tagVal = "Default", taskList = tasks_mgr.GetDefaultTasks())
 
 
 @app.route("/tasks/archived")
 def GetArchivedTasks():    
-    return render_template("tasks.html", tagVal = "Archived", taskList = tasksmgr.GetArchivedTasks())
+    return render_template("tasks.html", tagVal = "Archived", taskList = tasks_mgr.GetArchivedTasks())
 
 
 # Start the server
