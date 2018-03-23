@@ -6,12 +6,9 @@ import tasksmgr
 
 app = Flask(__name__)
 
-
-@app.route("/")
-def IndexPage():
-    return render_template("index.html")
-
-
+#--------------
+# API
+#--------------
 @app.route("/api/v1/tasks")
 def GetAllTasksApi():    
     return json.dumps(tasksmgr.GetAllTasks())
@@ -30,6 +27,19 @@ def GetStartedTasksApis():
 @app.route("/api/v1/tasks/default")
 def GetDefaultTasksApi():    
     return json.dumps(tasksmgr.GetDefaultTasks())
+
+
+#--------------
+# Web Pages
+#--------------
+@app.route("/")
+def IndexPage():
+    return render_template("index.html")
+
+
+@app.errorhandler(404)
+def error_404(e):
+    return render_template('error404.html'), 404
 
 
 @app.route("/tasks")

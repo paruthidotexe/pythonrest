@@ -1,6 +1,5 @@
 
-Tasks =[
-    
+Tasks = [    
     {
         "id" : 1,
         "desc" : "Python REST",
