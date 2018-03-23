@@ -24,11 +24,21 @@ def GetCompletedTasks():
     return TasksList
 
 
+def GetArchivedTasks():
+    TasksList = []
+    for task in Tasks:
+        if task["state"] == "Archived":
+            TasksList.append(task)
+    return TasksList
+
+
 def GetAllTasks():
     TasksList = []
     TasksList.extend(GetStartedTasks())
     TasksList.extend(GetDefaultTasks())
     TasksList.extend(GetCompletedTasks())
+    TasksList.extend(GetArchivedTasks())
+    
     # for task in TasksList:
     #     print ("\n" + str(task))
     return TasksList

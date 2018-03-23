@@ -52,9 +52,13 @@ def GetDefaultTasks():
     return render_template("tasks.html", tagVal = "Default", taskList = tasksmgr.GetDefaultTasks())
 
 
+@app.route("/tasks/archived")
+def GetArchivedTasks():    
+    return render_template("tasks.html", tagVal = "Archived", taskList = tasksmgr.GetArchivedTasks())
+
+
+# Start the server
 if __name__ == "__main__":    
     app.run(debug=True, host= '127.0.0.1', port=7777)
-
-
 
 

@@ -35,6 +35,11 @@ Tasks =[
         "id" : 7,
         "desc" : "Learn Flask",
         "state" : "Completed",
+    },
+    {
+        "id" : 8,
+        "desc" : "Choose IDE",
+        "state" : "Archived",
     }
 ]
 
